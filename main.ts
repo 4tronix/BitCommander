@@ -47,19 +47,6 @@ namespace bitcommander {
         return neoStrip;
     }
 
-
-    /**
-      * Sound a buzz.
-      *
-      * @param flag Flag to set (0) for off and (1) for on.
-      */
-    //% blockId="bitcommander_buzz" block="buzz sound %flag"
-    //% flag.min=0 flag.max=1
-    //% weight=95
-    export function buzz(flag: number): void {
-        pins.digitalWritePin(DigitalPin.P14, flag === 0 ? 0 : 1);
-    }
-
     /**
       * Read line sensor.
       *
@@ -69,7 +56,15 @@ namespace bitcommander {
     //% weight=90
     export function checkButton(button: BCButtons): number
     {
-        return pins.digitalReadPin(DigitalPin.P12);
+	switch (button)
+	{
+            case BCButtons.Red: return pins.digitalReadPin(DigitalPin.P12); break;
+            case BCButtons.Yellow: return pins.digitalReadPin(DigitalPin.P16); break;
+            case BCButtons.Green: return pins.digitalReadPin(DigitalPin.P14); break;
+            case BCButtons.Blue: return pins.digitalReadPin(DigitalPin.P15); break;
+            case BCButtons.Joystick: return pins.digitalReadPin(DigitalPin.P8); break;
+	    default return 0;
+	}
     }
 
     /**

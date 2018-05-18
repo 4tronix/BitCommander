@@ -10,7 +10,6 @@
     "files": [
         "README.md",
         "main.ts",
-        "_locales/no/bitcommander-strings.json"
     ],
     "testFiles": [
         "tests.ts"

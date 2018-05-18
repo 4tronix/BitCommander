@@ -53,7 +53,7 @@ namespace bitcommander {
       *
       * @param dir Direction to read
       */
-    //% blockId="bitcommander_read_joystick" block="read 31joystick %dir"
+    //% blockId="bitcommander_read_joystick" block="read 32joystick %dir"
     //% weight=90
     export function readJoystick(dir: BCJoystick): number {
         if (dir == BCJoystick.X) {

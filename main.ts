@@ -12,7 +12,7 @@ enum BCButtons {
     //% block="blue"
     Blue,
     //% block="joystick"
-    JoyBtn
+    Joystick
 }
 
 /**
@@ -53,7 +53,7 @@ namespace bitcommander {
       *
       * @param flag Flag to set (0) for off and (1) for on.
       */
-    //% blockId="bitbot_buzz" block="buzz sound %flag"
+    //% blockId="bitcommander_buzz" block="buzz sound %flag"
     //% flag.min=0 flag.max=1
     //% weight=95
     export function buzz(flag: number): void {
@@ -110,7 +110,7 @@ namespace bitcommander {
       *
       * @param rgb RGB color of the LED
       */
-    //% blockId="bitbot_neo_set_color" block="set pixels to %rgb=neopixel_colors"
+    //% blockId="bitcommander_neo_set_color" block="set pixels to %rgb=neopixel_colors"
     //% weight=80
     export function neoSetColor(rgb: number) {
         neo().showColor(rgb);
@@ -122,7 +122,7 @@ namespace bitcommander {
      * @param offset position of the NeoPixel in the strip
      * @param rgb RGB color of the LED
      */
-    //% blockId="bitbot_neo_set_pixel_color" block="set pixel color at %offset|to %rgb=neopixel_colors"
+    //% blockId="bitcommander_neo_set_pixel_color" block="set pixel color at %offset|to %rgb=neopixel_colors"
     //% weight=80
     export function neoSetPixelColor(offset: number, rgb: number): void {
         neo().setPixelColor(offset, rgb);
@@ -131,7 +131,7 @@ namespace bitcommander {
     /**
       * Show leds.
       */
-    //% blockId="bitbot_neo_show" block="show leds"
+    //% blockId="bitcommander_neo_show" block="show leds"
     //% weight=76
     export function neoShow(): void {
         neo().show();
@@ -140,7 +140,7 @@ namespace bitcommander {
     /**
       * Clear leds.
       */
-    //% blockId="bitbot_neo_clear" block="clear leds"
+    //% blockId="bitcommander_neo_clear" block="clear leds"
     //% weight=75
     export function neoClear(): void {
         neo().clear();
@@ -149,7 +149,7 @@ namespace bitcommander {
     /**
       * Shows a rainbow pattern on all LEDs.
       */
-    //% blockId="bitbot_neo_rainbow" block="set led rainbow"
+    //% blockId="bitcommander_neo_rainbow" block="set led rainbow"
     //% weight=70
     export function neoRainbow(): void {
         neo().showRainbow(1, 360);
@@ -158,7 +158,7 @@ namespace bitcommander {
     /**
      * Shift LEDs forward and clear with zeros.
      */
-    //% blockId="bitbot_neo_shift" block="shift led pixels"
+    //% blockId="bitcommander_neo_shift" block="shift led pixels"
     //% weight=66
     export function neoShift(): void {
         neo().shift(1);
@@ -167,7 +167,7 @@ namespace bitcommander {
     /**
      * Rotate LEDs forward.
      */
-    //% blockId="bitbot_neo_rotate" block="rotate led pixels"
+    //% blockId="bitcommander_neo_rotate" block="rotate led pixels"
     //% weight=65
     export function neoRotate(): void {
         neo().rotate(1);
@@ -178,53 +178,12 @@ namespace bitcommander {
      *
      * @param brightness a measure of LED brightness in 0-255. eg: 255
      */
-    //% blockId="bitbot_neo_brightness" block="set led brightness %brightness"
+    //% blockId="bitcommander_neo_brightness" block="set led brightness %brightness"
     //% brightness.min=0 brightness.max=255
     //% weight=10
     export function neoBrightness(brightness: number): void {
         neo().setBrightness(brightness);
     }
 
-    /**
-    * Read distance from sonar module connected to accessory connector.
-    *
-    * @param unit desired conversion unit
-    */
-    //% blockId="bitbot_sonar" block="read sonar as %unit"
-    //% weight=7
-    export function sonar(unit: BBPingUnit): number {
-        // send pulse
-        let trig = DigitalPin.P15;
-        let echo = DigitalPin.P15;
 
-        let maxCmDistance = 500;
-
-        pins.setPull(trig, PinPullMode.PullNone);
-        pins.digitalWritePin(trig, 0);
-        control.waitMicros(2);
-        pins.digitalWritePin(trig, 1);
-        control.waitMicros(10);
-        pins.digitalWritePin(trig, 0);
-
-        // read pulse
-        let d = pins.pulseIn(echo, PulseValue.High, maxCmDistance * 58);
-
-        switch (unit) {
-            case BBPingUnit.Centimeters: return d / 58;
-            case BBPingUnit.Inches: return d / 148;
-            default: return d;
-        }
-    }
-
-    /**
-      * Adjust opening of Claw attachment
-      *
-      * @param degrees Degrees to open Claw.
-      */
-    //% blockId="bitbot_set_claw" block="set claw %degrees"
-    //% weight=90
-    export function setClaw(degrees: number): void
-    {
-        pins.servoWritePin(AnalogPin.P15, Math.clamp(0, 80, degrees))
-    }
 }

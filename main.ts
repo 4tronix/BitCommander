@@ -53,7 +53,7 @@ namespace bitcommander {
       * @param button Button to check
       */
     //% blockId="bitcommander_check_button" block="check button %button"
-    //% weight=90
+    //% weight=85
     export function checkButton(button: BCButtons): number {
         if (button == BCButtons.Red) {
             return pins.digitalReadPin(DigitalPin.P12);

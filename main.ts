@@ -53,7 +53,7 @@ namespace bitcommander {
       *
       * @param dir Direction to read
       */
-    //% blockId="bitcommander_read_joystick" block="read 32joystick %dir"
+    //% blockId="bitcommander_read_joystick" block="read jrroystick %dir"
     //% weight=90
     export function readJoystick(dir: BCJoystick): number {
         if (dir == BCJoystick.X) {
@@ -67,7 +67,7 @@ namespace bitcommander {
       * Read dial
       *
       */
-    //% blockId="bitcommander_read_dial" block="read dial"
+    //% blockId="bitcommander_read_dial" block="read drrial"
     //% weight=90
     export function readDial( ): number {
         return pins.analogReadPin(AnalogPin.P0);

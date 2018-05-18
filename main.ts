@@ -48,21 +48,6 @@ namespace bitcommander {
     }
 
     /**
-      * Read line sensor.
-      *
-      * @param sensor Line sensor to read.
-      */
-    //% blockId="bitcommander_read_line" block="read line sensor %sensor"
-    //% weight=90
-    export function readLine(sensor: BCButtons): number {
-        if (sensor == BCButtons.Red) {
-            return pins.digitalReadPin(DigitalPin.P11);
-        } else {
-            return pins.digitalReadPin(DigitalPin.P5);
-        }
-    }
-
-    /**
       * Read joystick
       *
       * @param dir Direction to read

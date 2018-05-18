@@ -7,7 +7,7 @@ https://4tronix.co.uk/bitcommander/.
 
 There are 5 buttons that can be checked: Red, ```Yellow```, Green and Blue on the left and the Joystick on the right can be pressed as well
 
-```blocks
+```
 // Drive 1000 ms forward
 bitbot.motor(BBMotor.All, 1023);
 basic.pause(1000);

@@ -56,10 +56,7 @@ namespace bitcommander {
     //% weight=90
     export function checkButton(button: BCButtons): number
     {
-	if (button == BCButtons.Red)
-	    return pins.digitalReadPin(DigitalPin.P12);
-	else
-	    return 0;
+        return pins.digitalReadPin(DigitalPin.P12);
     }
 
     /**

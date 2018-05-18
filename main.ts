@@ -66,12 +66,12 @@ namespace bitcommander {
     /**
       * check buttons
       *
-      * @param button Button to check
+      * @param buttonID Button to check
       */
-    //% blockId="bitcommander_check_button" block="check button %button"
+    //% blockId="bitcommander_check_button" block="check button %buttonID"
     //% weight=85
-    export function readButton(button: BCButtons): number {
-        if (button == BCButtons.Red) {
+    export function readButton(buttonID: BCButtons): number {
+        if (buttonID == BCButtons.Red) {
             return pins.digitalReadPin(DigitalPin.P1);
         } else {
             return pins.digitalReadPin(DigitalPin.P2);

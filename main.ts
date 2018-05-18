@@ -64,10 +64,26 @@ namespace bitcommander {
     }
 
     /**
+      * check buttons
+      *
+      * @param button Button to check
+      */
+    //% blockId="bitcommander_check_button" block="check button %button"
+    //% weight=85
+    export function readButton(button: BCButtons): number {
+        if (button == BCButtons.Red) {
+            return pins.digitalReadPin(DigitalPin.P1);
+        } else {
+            return pins.digitalReadPin(DigitalPin.P2);
+        }
+    }
+
+
+    /**
       * Read dial
       *
       */
-    //% blockId="bitcommander_read_dial" block="read drrial"
+    //% blockId="bitcommander_read_dial" block="read dial"
     //% weight=90
     export function readDial( ): number {
         return pins.analogReadPin(AnalogPin.P0);

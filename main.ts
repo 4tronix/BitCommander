@@ -48,15 +48,30 @@ namespace bitcommander {
     }
 
     /**
-      * Read line sensor.
+      * Read value of button
       *
       * @param button Button to read.
-      */
+      
     //% blockId="bitcommander_check_button" block="check button %button"
     //% weight=90
     export function checkButton(button: BCButtons): number
     {
         return pins.digitalReadPin(DigitalPin.P12);
+    }*/
+
+    /**
+      * Read line sensor.
+      *
+      * @param sensor Line sensor to read.
+      */
+    //% blockId="bitcommander_read_line" block="read line sensor %sensor"
+    //% weight=90
+    export function readLine(sensor: BCButtons): number {
+        if (sensor == BCButtons.Red) {
+            return pins.digitalReadPin(DigitalPin.P11);
+        } else {
+            return pins.digitalReadPin(DigitalPin.P5);
+        }
     }
 
     /**

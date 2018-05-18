@@ -48,6 +48,21 @@ namespace bitcommander {
     }
 
     /**
+      * check buttons
+      *
+      * @param button Button to check
+      */
+    //% blockId="bitcommander_check_button" block="check button %button"
+    //% weight=90
+    export function checkButton(button: BCButtons): number {
+        if (button == BCButtons.Red) {
+            return pins.digitalReadPin(AnalogPin.P12);
+        } else {
+            return pins.digitalReadPin(AnalogPin.P14);
+        }
+    }
+
+    /**
       * Read joystick
       *
       * @param dir Direction to read

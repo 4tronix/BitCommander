@@ -69,15 +69,7 @@ namespace bitcommander {
     //% weight=90
     export function checkButton(sensor: BCButtons): number
     {
-        switch(button)
-	{
-	    case BCButtons.Red: return pins.digitalReadPin(DigitalPin.P12); break;
-	    case BCButtons.Yellow: return pins.digitalReadPin(DigitalPin.P16); break;
-	    case BCButtons.Green: return pins.digitalReadPin(DigitalPin.P14); break;
-	    case BCButtons.Blue: return pins.digitalReadPin(DigitalPin.P15); break;
-	    case BCButtons.JoyBtn: return pins.digitalReadPin(DigitalPin.P8); break;
-	    default: return 0;
-        }
+        return pins.digitalReadPin(DigitalPin.P12);
     }
 
     /**

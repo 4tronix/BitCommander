@@ -5,7 +5,7 @@ https://4tronix.co.uk/bitcommander/.
 
 ## Reading the buttons
 
-There are 5 buttons that can be checked: Red, ```Yellow```, Green and Blue on the left and the Joystick on the right can be pressed as well
+There are 5 buttons that can be checked: `Red`, `Yellow`, `Green` and `Blue` on the left and the `Joystick` on the right can be pressed as well
 
 ```
 // Drive 1000 ms forward

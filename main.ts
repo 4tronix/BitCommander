@@ -48,18 +48,6 @@ namespace bitcommander {
     }
 
     /**
-      * Read value of button
-      *
-      * @param button Button to read.
-      
-    //% blockId="bitcommander_check_button" block="check button %button"
-    //% weight=90
-    export function checkButton(button: BCButtons): number
-    {
-        return pins.digitalReadPin(DigitalPin.P12);
-    }*/
-
-    /**
       * Read line sensor.
       *
       * @param sensor Line sensor to read.

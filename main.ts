@@ -47,28 +47,13 @@ namespace bitcommander {
         return neoStrip;
     }
 
-    /**
-      * check buttons
-      *
-      * @param button Button to check
-      */
-    //% blockId="bitcommander_check_button" block="check 30button %button"
-    //% weight=85
-    export function readButton(button: BCButtons): number {
-        if (button == BCButtons.Red) {
-            return pins.analogReadPin(AnalogPin.P1);
-        } else {
-            return pins.analogReadPin(AnalogPin.P2);
-        }
-    }
-
 
     /**
       * Read joystick
       *
       * @param dir Direction to read
       */
-    //% blockId="bitcommander_read_joystick" block="read 30joystick %dir"
+    //% blockId="bitcommander_read_joystick" block="read 31joystick %dir"
     //% weight=90
     export function readJoystick(dir: BCJoystick): number {
         if (dir == BCJoystick.X) {

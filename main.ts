@@ -1,62 +1,35 @@
 ﻿
 /**
-  * Enumeration of motors.
+  * Enumeration of buttons
   */
-enum BBMotor {
-    //% block="left"
-    Left,
-    //% block="right"
-    Right,
-    //% block="all"
-    All
+enum BCButtons {
+    //% block="red"
+    Red,
+    //% block="yellow"
+    Yellow,
+    //% block="green"
+    Green,
+    //% block="blue"
+    Blue,
+    //% block="joystick"
+    Joystick
 }
 
 /**
-  * Enumeration of directions.
+  * Enumeration of joystick directions
   */
-enum BBRobotDirection {
-    //% block="left"
-    Left,
-    //% block="right"
-    Right
+enum BCJoystick {
+    //% block="x"
+    X,
+    //% block="y"
+    Y
 }
 
-/**
-  * Enumeration of line sensors.
-  */
-enum BBLineSensor {
-    //% block="left"
-    Left,
-    //% block="right"
-    Right
-}
-
-/**
-  * Enumeration of light sensors.
-  */
-enum BBLightSensor {
-    //% block="left"
-    Left,
-    //% block="right"
-    Right
-}
-
-/**
- * Ping unit for sesnor.
- */
-enum BBPingUnit {
-    //% block="μs"
-    MicroSeconds,
-    //% block="cm"
-    Centimeters,
-    //% block="inches"
-    Inches
-}
 
 /**
  * Custom blocks
  */
-//% weight=10 color=#e7660b icon="\uf1b9"
+//% weight=10 color=#e7660b icon="\uf11b"
 namespace bitcommander {
 
     let neoStrip: neopixel.Strip;
@@ -68,116 +41,12 @@ namespace bitcommander {
     //% weight=5
     export function neo(): neopixel.Strip {
         if (!neoStrip) {
-            neoStrip = neopixel.create(DigitalPin.P13, 12, NeoPixelMode.RGB)
+            neoStrip = neopixel.create(DigitalPin.P13, 6, NeoPixelMode.RGB)
         }
 
         return neoStrip;
     }
 
-    /**
-      * Drive robot forward (or backward) at speed.
-      *
-      * @param speed speed of motor between -1023 and 1023.
-      */
-    //% blockId="bitcommander_motor_forward" block="drive at speed %speed"
-    //% speed.min=-1023 speed.max=1023
-    //% weight=110
-    export function drive(speed: number): void {
-        motor(BBMotor.All, speed);
-    }
-
-    /**
-      * Drive robot forward (or backward) at speed for milliseconds.
-      *
-      * @param speed speed of motor between -1023 and 1023.
-      * @param milliseconds duration in milliseconds to drive forward for, then stop.
-      */
-    //% blockId="bitcommander_motor_forward_milliseconds" block="drive at speed %speed| for milliseconds %milliseconds"
-    //% speed.min=-1023 speed.max=1023
-    //% weight=131
-    export function driveMilliseconds(speed: number, milliseconds: number): void {
-        drive(speed);
-        basic.pause(milliseconds);
-        drive(0);
-    }
-
-    /**
-      * Turn robot in direction at speed.
-      *
-      * @param direction direction to turn.
-      * @param speed speed of motor between 0 and 1023.
-      */
-    //% blockId="bitcommander_turn" block="turn in direction %direction|speed %speed"
-    //% speed.min=0 speed.max=1023
-    //% weight=109
-    export function driveTurn(direction: BBRobotDirection, speed: number): void {
-        if (speed < 0) speed = 0;
-
-        if (direction == BBRobotDirection.Left) {
-            motor(BBMotor.Left, -speed);
-            motor(BBMotor.Right, speed);
-        } else if (direction == BBRobotDirection.Right) {
-            motor(BBMotor.Left, speed);
-            motor(BBMotor.Right, -speed);
-        }
-    }
-
-    /**
-      * Turn robot in direction at speed for milliseconds.
-      *
-      * @param direction direction to turn.
-      * @param speed speed of motor between 0 and 1023.
-      * @param milliseconds duration in milliseconds to turn for, then stop.
-      */
-    //% blockId="bitcommander_turn_milliseconds" block="turn in direction %direction|speed %speed| for milliseconds %milliseconds"
-    //% speed.min=0 speed.max=1023
-    //% weight=130
-    export function driveTurnMilliseconds(direction: BBRobotDirection, speed: number, milliseconds: number): void {
-        driveTurn(direction, speed)
-        basic.pause(milliseconds)
-        motor(BBMotor.All, 0)
-    }
-
-    /**
-      * Drive motor(s) forward or reverse.
-      *
-      * @param motor motor to drive.
-      * @param speed speed of motor
-      */
-    //% blockId="bitcommander_motor" block="drive motor %motor|speed %speed"
-    //% weight=100
-    export function motor(motor: BBMotor, speed: number): void {
-        let forward = (speed >= 0);
-
-        if (speed > 1023) {
-            speed = 1023;
-        } else if (speed < -1023) {
-            speed = -1023;
-        }
-
-        let realSpeed = speed;
-        if (!forward) {
-            if (realSpeed >= -200)
-                realSpeed = (realSpeed * 19) / 6;
-            else if (realSpeed >= -400)
-                realSpeed = realSpeed * 2;
-            else if (realSpeed >= -600)
-                realSpeed = (realSpeed * 3) / 2;
-            else if (realSpeed >= -800)
-                realSpeed = (realSpeed * 5) / 4;
-            realSpeed = 1023 + realSpeed; // realSpeed is negative!
-        }
-
-        if ((motor == BBMotor.Left) || (motor == BBMotor.All)) {
-            pins.analogWritePin(AnalogPin.P0, realSpeed);
-            pins.digitalWritePin(DigitalPin.P8, forward ? 0 : 1);
-        }
-
-        if ((motor == BBMotor.Right) || (motor == BBMotor.All)) {
-            pins.analogWritePin(AnalogPin.P1, realSpeed);
-            pins.digitalWritePin(DigitalPin.P12, forward ? 0 : 1);
-        }
-    }
 
     /**
       * Sound a buzz.
@@ -194,33 +63,38 @@ namespace bitcommander {
     /**
       * Read line sensor.
       *
-      * @param sensor Line sensor to read.
+      * @param button Button to read.
       */
-    //% blockId="bitcommander_read_line" block="read line sensor %sensor"
+    //% blockId="bitcommander_check_button" block="check button %button"
     //% weight=90
-    export function readLine(sensor: BBLineSensor): number {
-        if (sensor == BBLineSensor.Left) {
-            return pins.digitalReadPin(DigitalPin.P11);
+    export function checkButton(button: BCButtons): number
+    {
+        return pins.digitalReadPin(DigitalPin.P12);
+    }
+
+    /**
+      * Read joystick
+      *
+      * @param dir Direction to read
+      */
+    //% blockId="bitcommander_read_joystick" block="read joystick %dir"
+    //% weight=90
+    export function readJoystick(sensor: BCJoystick): number {
+        if (dir == BCJoystick.X) {
+            return pins.analogReadPin(AnalogPin.P1);
         } else {
-            return pins.digitalReadPin(DigitalPin.P5);
+            return pins.analogReadPin(AnalogPin.P2);
         }
     }
 
     /**
-      * Read light sensor.
+      * Read dial
       *
-      * @param sensor Light sensor to read.
       */
-    //% blockId="bitcommander_read_light" block="read light sensor %sensor"
+    //% blockId="bitcommander_read_dial" block="read dial"
     //% weight=90
-    export function readLight(sensor: BBLightSensor): number {
-        if (sensor == BBLightSensor.Left) {
-            pins.digitalWritePin(DigitalPin.P16, 0);
-            return pins.analogReadPin(AnalogPin.P2);
-        } else {
-            pins.digitalWritePin(DigitalPin.P16, 1);
-            return pins.analogReadPin(AnalogPin.P2);
-        }
+    export function readDial( ): number {
+        return pins.analogReadPin(AnalogPin.P0);
     }
 
     /**
@@ -303,46 +177,5 @@ namespace bitcommander {
         neo().setBrightness(brightness);
     }
 
-    /**
-    * Read distance from sonar module connected to accessory connector.
-    *
-    * @param unit desired conversion unit
-    */
-    //% blockId="bitcommander_sonar" block="read sonar as %unit"
-    //% weight=7
-    export function sonar(unit: BBPingUnit): number {
-        // send pulse
-        let trig = DigitalPin.P15;
-        let echo = DigitalPin.P15;
 
-        let maxCmDistance = 500;
-
-        pins.setPull(trig, PinPullMode.PullNone);
-        pins.digitalWritePin(trig, 0);
-        control.waitMicros(2);
-        pins.digitalWritePin(trig, 1);
-        control.waitMicros(10);
-        pins.digitalWritePin(trig, 0);
-
-        // read pulse
-        let d = pins.pulseIn(echo, PulseValue.High, maxCmDistance * 58);
-
-        switch (unit) {
-            case BBPingUnit.Centimeters: return d / 58;
-            case BBPingUnit.Inches: return d / 148;
-            default: return d;
-        }
-    }
-
-    /**
-      * Adjust opening of Claw attachment
-      *
-      * @param degrees Degrees to open Claw.
-      */
-    //% blockId="bitcommander_set_claw" block="set claw %degrees"
-    //% weight=90
-    export function setClaw(degrees: number): void
-    {
-        pins.servoWritePin(AnalogPin.P15, Math.clamp(0, 80, degrees))
-    }
 }

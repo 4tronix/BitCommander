@@ -54,13 +54,14 @@ namespace bitcommander {
       */
     //% blockId="bitcommander_check_button" block="check button %button"
     //% weight=85
-    export function checkButton(button: BCButtons): number {
+    export function readJoystick(button: BCButtons): number {
         if (button == BCButtons.Red) {
-            return pins.digitalReadPin(DigitalPin.P12);
+            return pins.analogReadPin(AnalogPin.P1);
         } else {
-            return pins.digitalReadPin(DigitalPin.P14);
+            return pins.analogReadPin(AnalogPin.P2);
         }
     }
+
 
     /**
       * Read joystick
@@ -69,7 +70,7 @@ namespace bitcommander {
       */
     //% blockId="bitcommander_read_joystick" block="read joystick %dir"
     //% weight=90
-    export function readJoystick(sensor: BCJoystick): number {
+    export function readJoystick(dir: BCJoystick): number {
         if (dir == BCJoystick.X) {
             return pins.analogReadPin(AnalogPin.P1);
         } else {

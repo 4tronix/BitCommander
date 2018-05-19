@@ -49,11 +49,11 @@ namespace bitcommander {
 
 
     /**
-      * Read joystick
+      * Read joystick values
       *
       * @param dir Direction to read
       */
-    //% blockId="bitcommander_read_joystick" block="read joystick %dir"
+    //% blockId="bitcommander_read_joystick" block="read joy38stick %dir"
     //% weight=90
     export function readJoystick(dir: BCJoystick): number {
         if (dir == BCJoystick.X) {
@@ -64,7 +64,7 @@ namespace bitcommander {
     }
 
     /**
-      * check buttons
+      * check button states
       *
       * @param buttonID Button to check
       */

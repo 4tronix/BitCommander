@@ -71,11 +71,15 @@ namespace bitcommander {
     //% blockId="bitcommander_check_button" block="check button %buttonID"
     //% weight=85
     export function readButton(buttonID: BCButtons): number {
-        if (buttonID == BCButtons.Red) {
-            return pins.digitalReadPin(DigitalPin.P1);
-        } else {
-            return pins.digitalReadPin(DigitalPin.P2);
-        }
+	switch (buttonID)
+	{
+            case BCButtons.Red: return pins.digitalReadPin(DigitalPin.P12); break;
+            case BCButtons.Yellow: return pins.digitalReadPin(DigitalPin.P16); break;
+            case BCButtons.Green: return pins.digitalReadPin(DigitalPin.P14); break;
+            case BCButtons.Blue: return pins.digitalReadPin(DigitalPin.P15); break;
+            case BCButtons.Joystick: return pins.digitalReadPin(DigitalPin.P8); break;
+	    default: return 0;
+	}
     }
 
 

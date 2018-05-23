@@ -16,7 +16,7 @@ enum BCButtons {
 }
 
 /**
-  * Enumeration of joystick directions
+  * Enumeration of joystick axes
   */
 enum BCJoystick {
     //% block="x"
@@ -51,12 +51,12 @@ namespace bitcommander {
     /**
       * Read joystick values
       *
-      * @param dir Direction to read
+      * @param dir Axis to read
       */
-    //% blockId="bitcommander_read_joystick" block="read joystick %dir"
+    //% blockId="bitcommander_read_joystick" block="read joystick %axis"
     //% weight=90
-    export function readJoystick(dir: BCJoystick): number {
-        if (dir == BCJoystick.X) {
+    export function readJoystick(axis: BCJoystick): number {
+        if (axis == BCJoystick.X) {
             return pins.analogReadPin(AnalogPin.P1);
         } else {
             return pins.analogReadPin(AnalogPin.P2);

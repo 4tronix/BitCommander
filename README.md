@@ -18,7 +18,7 @@ if (bitcommander.readButton(BCButtons.Green) == 1) {
 
 ## Reading the position of the Dial
 
-When writing code, be aware that the Dial control input is shared with the speaker output and so the input range is limited to around 0 - 850 instead of the normal 0 - 1023
+When writing code, be aware that the Dial control input is shared with the speaker output and so the input range is limited to around 0 - 850 instead of the normal 0 - 1023. 
 Use the readDial block to get the value (0 to ~850) into a variable, or test the value directly
 
 ```
@@ -37,8 +37,8 @@ if (bitcommander.readDial() > 500) {
 
 ## Reading the position of the Joystick
 
-Both the X and Y axes of the joystick have a range 0 to 1023. Specify the axis as part of the function call
-Use the readJoystick block to get the value
+Both the X and Y axes of the joystick have a range 0 to 1023. Specify the axis as part of the function call.
+Use the readJoystick block to get the value.
 
 ```
 // Read the Joystick X axis value in to the xAxis variable

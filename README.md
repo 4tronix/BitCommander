@@ -6,106 +6,94 @@ https://4tronix.co.uk/bitcommander/.
 ## Reading the buttons
 
 There are 5 buttons that can be checked: `Red`, `Yellow`, `Green` and `Blue` on the left and the `Joystick` on the right can be pressed as well
+If the button is pressed it will return a '1'. If it isn't pressed, then it returns a '0'
+The following code checks the Green button and does something if it is pressed
 
 ```
-// Drive 1000 ms forward
-bitbot.motor(BBMotor.All, 1023);
-basic.pause(1000);
-
-// Drive 1000 ms reverse
-bitbot.motor(BBMotor.All, -1023);
-basic.pause(1000);
-
-// Drive 1000 ms forward on left and reverse on right
-bitbot.motor(BBMotor.Left, 1023);
-bitbot.motor(BBMotor.Right, -1023);
-basic.pause(1000);
+// Check Green button
+if (bitcommander.readButton(BCButtons.Green) == 1) {
+    ... do something ...
+}
 ```
 
-## Buzz sound
+## Reading the position of the Dial
 
-To use the buzzer, just use `bitbot.buzz(..)` function with either `1`
-(sound) or `0` (no-sound).
+When writing code, be aware that the Dial control input is shared with the speaker output and so the input range is limited to around 0 - 850 instead of the normal 0 - 1023
+Use the readDial block to get the value (0 to ~850) into a variable, or test the value directly
+
+```
+// Read the Dial value into the myDial variable
+myDial = bitcommander.readDial()
+if (myDial > 500) {
+   ... do something ...
+}
+
+or this is equivalent:
+
+if (bitcommander.readDial() > 500) {
+   ... do something ...
+}
+```
+
+## Reading the position of the Joystick
+
+Both the X and Y axes of the joystick have a range 0 to 1023. Specify the axis as part of the function call
+Use the readJoystick block to get the value
+
+```
+// Read the Joystick X axis value in to the xAxis variable
+xAxis = bitcommander.readJoystick(BCJoystick.X)
+```
+
+## Playing music
+
+There is a small speaker on Bit:Commander wired to Pin 0, which is the default for playing music files. Use the standard Music blocks for this:
 
 ```blocks
-// Buzz for 100 ms
-bitbot.buzz(1);
-basic.pause(100);
-bitbot.buzz(0);
+// Play The Entertainer music clip
+music.beginMelody(music.builtInMelody(Melodies.Entertainer), MelodyOptions.Once)
 ```
 
-## Read line sensor
 
-The BitBot has two line-sensors: left and right. To read the value of the
-sensors, use `bitbot.readLine(..)` function.
-
-```blocks
-// Read left and right line sensor
-let left = bitbot.readLine(BBLineSensor.Left);
-let right = bitbot.readLine(BBLineSensor.Right);
-```
-
-## Read light sensor
-
-Light sensors can be read using `bitbot.readLight(..)` function.
-
-```blocks
-// Read left and right light sensor
-let left = bitbot.readLight(BBLightSensor.Left);
-let right = bitbot.readLight(BBLightSensor.Right);
-```
-
-## Read sonar value
-
-If you have mounted the optional sonar sensor for the BitBot you can
-also use the `bitbot.sonar(..)` function to read the distance to obstacles.
-
-```blocks
-// Read sonar values
-let v1 = bitbot.sonar(BBPingUnit.MicroSeconds);
-let v2 = bitbot.sonar(BBPingUnit.Centimeters);
-let v3 = bitbot.sonar(BBPingUnit.Inches);
-```
 
 ## NeoPixel helpers
 
-The BitBot has 12 NeoPixels mounted. This library defines some helpers
-for using the NeoPixels.
+The Bit:Commander has 6 NeoPixels
 
 ```blocks
 // Show all leds
-bitbot.neoSetColor(neopixel.colors(NeoPixelColors.Red));
-bitbot.neoShow();
+bitcommander.neoSetColor(neopixel.colors(NeoPixelColors.Red));
+bitcommander.neoShow();
 
 // Clear all leds
-bitbot.neoClear();
-bitbot.neoShow();
+bitcommander.neoClear();
+bitcommander.neoShow();
 
 // Show led at position 1
-bitbot.neoSetPixelColor(0, neopixel.colors(NeoPixelColors.Red));
-bitbot.neoShow();
+bitcommander.neoSetPixelColor(0, neopixel.colors(NeoPixelColors.Red));
+bitcommander.neoShow();
 
 // Show led rainbow
-bitbot.neoRainbow();
-bitbot.neoShow();
+bitcommander.neoRainbow();
+bitcommander.neoShow();
 
 // Show led rainbow and shift
-bitbot.neoRainbow();
-bitbot.neoShift();
-bitbot.neoShow();
+bitcommander.neoRainbow();
+bitcommander.neoShift();
+bitcommander.neoShow();
 
 // Show led rainbow and rotate
-bitbot.neoRainbow();
-bitbot.neoRotate();
-bitbot.neoShow();
+bitcommander.neoRainbow();
+bitcommander.neoRotate();
+bitcommander.neoShow();
 
 // Set brightness of leds
-bitbot.neoBrightness(100);
-bitbot.neoShow();
+bitcommander.neoBrightness(100);
+bitcommander.neoShow();
 
 // Use neo() variable
-bitbot.neo().clear();
-bitbot.neo().show();
+bitcommander.neo().clear();
+bitcommander.neo().show();
 ```
 
 ## Supported targets

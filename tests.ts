@@ -1,34 +1,27 @@
 {
-  // Drive 100 ms forward
-  bitbot.motor(BBMotor.All, 1023);
+  // Read Joystick X axis
+  basic.showNumber(bitcommander.readJoystick(BCJoystick.X));
   basic.pause(100);
 
-  // Drive 100 ms reverse
-  bitbot.motor(BBMotor.All, -1023);
+  // Read Joystick Y axis
+  basic.showNumber(bitcommander.readJoystick(BCJoystick.Y));
   basic.pause(100);
 
-  // Drive 100 ms forward on left and reverse on right
-  bitbot.motor(BBMotor.Left, 1023);
-  bitbot.motor(BBMotor.Right, -1023);
+  // Read Dial
+  basic.showNumber(bitcommander.readDial());
   basic.pause(100);
 
-  // Buzz for 100 ms
-  bitbot.buzz(1);
+  // Show states of all buttons
+  basic.showNumber(bitcommander.readButton(BCButtons.Red));
+  basic.showNumber(bitcommander.readButton(BCButtons.Yellow));
+  basic.showNumber(bitcommander.readButton(BCButtons.Green));
+  basic.showNumber(bitcommander.readButton(BCButtons.Blue));
+  basic.showNumber(bitcommander.readButton(BCButtons.Joystick));
   basic.pause(100);
-  bitbot.buzz(0);
 
-  // Read left and right line sensor
-  basic.showNumber(bitbot.readLine(BBLineSensor.Left));
-  basic.showNumber(bitbot.readLine(BBLineSensor.Right));
-
-  // Read left and right light sensor
-  basic.showNumber(bitbot.readLight(BBLightSensor.Left));
-  basic.showNumber(bitbot.readLight(BBLightSensor.Right));
-
-  // Read sonar values
-  basic.showNumber(bitbot.sonar(BBPingUnit.MicroSeconds));
-  basic.showNumber(bitbot.sonar(BBPingUnit.Centimeters));
-  basic.showNumber(bitbot.sonar(BBPingUnit.Inches));
+  // Play tune on Speaker
+  music.playTone(262, music.beat(BeatFraction.Whole));
+  basic.pause(100);
 
   // Show all leds
   bitbot.neoSetColor(neopixel.colors(NeoPixelColors.Red));
@@ -38,7 +31,7 @@
   bitbot.neoClear();
   bitbot.neoShow();
 
-  // Show led at position 1
+  // Show led at position 0
   bitbot.neoSetPixelColor(0, neopixel.colors(NeoPixelColors.Red));
   bitbot.neoShow();
 

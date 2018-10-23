@@ -101,5 +101,4 @@ bitcommander.neo().show();
 * for PXT/microbit
 
 ## License
-
-Apache 2.0
+MIT

@@ -25,12 +25,44 @@ enum BCJoystick {
     Y
 }
 
+/**
+ * Pins used to generate events
+ */
+enum BCPins {
+    //% block="red"
+    Red = <number>DAL.MICROBIT_ID_IO_P12,
+    //% block="yellow"
+    Yellow = DAL.MICROBIT_ID_IO_P16,
+    //% block="green"
+    Green = DAL.MICROBIT_ID_IO_P14,
+    //% block="blue"
+    Blue = DAL.MICROBIT_ID_IO_P15,
+    //% block="joystick"
+    Joystick = DAL.MICROBIT_ID_IO_P8
+}
+
+/**
+ * Button events
+ */
+enum BCEvents {
+    //% block="down"
+    Down = DAL.MICROBIT_BUTTON_EVT_DOWN,
+    //% block="up"
+    Up = DAL.MICROBIT_BUTTON_EVT_UP,
+    //% block="click"
+    Click = DAL.MICROBIT_BUTTON_EVT_CLICK,
+}
 
 /**
  * Custom blocks
  */
 //% weight=10 color=#e7660b icon="\uf11b"
 namespace bitcommander {
+
+    //% shim=bitcommander::init
+    function init(): void {
+        return;
+    }
 
     let neoStrip: neopixel.Strip;
 
@@ -39,7 +71,7 @@ namespace bitcommander {
      */
     //% blockId="bitcommander_neo" block="neo strip"
     //% weight=5
-    export function neo(): neopixel.Strip {
+    function neo(): neopixel.Strip {
         if (!neoStrip) {
             neoStrip = neopixel.create(DigitalPin.P13, 6, NeoPixelMode.RGB)
         }
@@ -47,6 +79,16 @@ namespace bitcommander {
         return neoStrip;
     }
 
+    /**
+      * Registers event code
+      */
+    //% weight=90
+    //% blockId=bc_onevent block="on %button|%event"
+    export function onEvent(button: BCPins, event: BCEvents, handler: Action)
+    {
+        init();
+        control.onEvent(<number>button, <number>event, handler); // register handler
+    }
 
     /**
       * Read joystick values

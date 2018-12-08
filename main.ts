@@ -29,14 +29,14 @@ enum BCJoystick {
  * Pins used to generate events
  */
 enum BCPins {
-    //% block="red"
-    Red = <number>DAL.MICROBIT_ID_IO_P12,
+    //% block="redd"
+    P12 = <number>DAL.MICROBIT_ID_IO_P12,
     //% block="yellow"
-    Yellow = DAL.MICROBIT_ID_IO_P16,
+    P16 = DAL.MICROBIT_ID_IO_P16,
     //% block="green"
-    Green = DAL.MICROBIT_ID_IO_P14,
+    P14 = DAL.MICROBIT_ID_IO_P14,
     //% block="blue"
-    Blue = DAL.MICROBIT_ID_IO_P15,
+    P15 = DAL.MICROBIT_ID_IO_P15,
     //% block="joystick"
     Joystick = DAL.MICROBIT_ID_IO_P8
 }

@@ -2,7 +2,7 @@
     "name": "bitcommander",
     "version": "1.0.0",
     "description": "A BitCommander package for pxt-microbit",
-    "license": "Apache",
+    "license": "MIT",
     "dependencies": {
         "core": "*",
         "neopixel": "github:microsoft/pxt-neopixel#v0.6.10"

@@ -27,7 +27,7 @@ enum BCJoystick {
 
 /**
   * Update mode for LEDs
-  * setting to Manual requires "show LED changes" blocks
+  * setting to Manual requires show LED changes blocks
   * setting to Auto will update the LEDs everytime they change
   */
 enum BCMode

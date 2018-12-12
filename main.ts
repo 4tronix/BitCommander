@@ -311,7 +311,7 @@ namespace bitcommander
     //% blockId="bitcommander_neo_brightness" block="set led brightness %brightness"
     //% brightness.min=0 brightness.max=255
     //% weight=60
-    //% advanced=tru
+    //% advanced=true
     export function neoBrightness(brightness: number): void
     {
         neo().setBrightness(brightness);

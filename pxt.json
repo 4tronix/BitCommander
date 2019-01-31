@@ -1,6 +1,6 @@
 {
     "name": "bitcommander",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "A BitCommander package for pxt-microbit",
     "license": "MIT",
     "dependencies": {
@@ -9,7 +9,10 @@
     },
     "files": [
         "README.md",
-        "main.ts"
+        "main.ts",
+        "main.cpp",
+        "shims.d.ts",
+        "enums.d.ts"
     ],
     "testFiles": [
         "tests.ts"

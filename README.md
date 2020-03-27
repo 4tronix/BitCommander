@@ -1,6 +1,6 @@
-# BitCommander Package for Microsoft PXT
+# Makecode Extension for 4tronix BitCommander
 
-This library provides a Microsoft PXT package for Bit:Commander, see
+This library provides a Microsoft Makecode extension for 4tronix Bit:Commander, see
 https://4tronix.co.uk/bitcommander/.
 
 ## Reading the buttons
@@ -56,44 +56,34 @@ music.beginMelody(music.builtInMelody(Melodies.Entertainer), MelodyOptions.Once)
 
 
 
-## NeoPixel helpers
+## Fireled helpers
 
-The Bit:Commander has 6 NeoPixels
+The Bit:Commander has 6 Fireleds
+The default update mode is automatic so LEDs will be updated immediately after changes
 
 ```blocks
-// Show all leds
-bitcommander.neoSetColor(neopixel.colors(NeoPixelColors.Red));
-bitcommander.neoShow();
+// Set all leds to Red
+bitcommander.bitcommander.setLedColor(0xff0000);
 
 // Clear all leds
-bitcommander.neoClear();
-bitcommander.neoShow();
+bitcommander.ledClear();
 
-// Show led at position 1
-bitcommander.neoSetPixelColor(0, neopixel.colors(NeoPixelColors.Red));
-bitcommander.neoShow();
+// Set Fireled at position 1 to Green
+bitcommander.setPixelColor(0, 0x00ff00);
 
-// Show led rainbow
-bitcommander.neoRainbow();
-bitcommander.neoShow();
+// Show rainbow across all Fireleds (Red..Violet)
+bitcommander.ledRainbow();
 
 // Show led rainbow and shift
-bitcommander.neoRainbow();
-bitcommander.neoShift();
-bitcommander.neoShow();
+bitcommander.ledRainbow();
+bitcommander.ledhift();
 
 // Show led rainbow and rotate
-bitcommander.neoRainbow();
-bitcommander.neoRotate();
-bitcommander.neoShow();
+bitcommander.ledRainbow();
+bitcommander.ledRotate();
 
 // Set brightness of leds
-bitcommander.neoBrightness(100);
-bitcommander.neoShow();
-
-// Use neo() variable
-bitcommander.neo().clear();
-bitcommander.neo().show();
+bitcommander.ledBrightness(100);
 ```
 
 ## Supported targets

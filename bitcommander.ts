@@ -95,8 +95,12 @@ enum BCColors
 //% weight=10 color=#e7660b icon="\uf11b"
 namespace bitcommander
 {
-    let neoStrip: neopixel.Strip;
+    let band: fireled.Band;
+    let ledPin = DigitalPin.P13;
+    let ledCount = 6;
     let _updateMode = BCMode.Auto;
+    let btEnabled = false;
+
     let _initEvents = true;
 
 // Inputs. Buttons, Dial and Joystick
@@ -110,9 +114,8 @@ namespace bitcommander
       * Registers event code
       */
     //% weight=90
-    //% blockId=bc_onevent block="on %button|%event"
+    //% blockId=bcOnEvent block="on %button|%event"
     //% subcategory=Inputs
-    //% group=Inputs
     export function onEvent(button: BCPins, event: BCEvents, handler: Action)
     {
         init();
@@ -121,13 +124,11 @@ namespace bitcommander
 
     /**
       * check button states
-      *
       * @param buttonID Button to check
       */
-    //% blockId="bitcommander_check_button" block="button %buttonID|pressed"
+    //% blockId="bcCheckButton" block="button %buttonID|pressed"
     //% weight=85
     //% subcategory=Inputs
-    //% group=Inputs
     export function readButton(buttonID: BCButtons): boolean
     {
 	switch (buttonID)
@@ -143,12 +144,10 @@ namespace bitcommander
 
     /**
       * Read dial
-      *
       */
-    //% blockId="bitcommander_read_dial" block="dial"
+    //% blockId="bcReadDial" block="dial"
     //% weight=90
     //% subcategory=Inputs
-    //% group=Inputs
     export function readDial( ): number
     {
         return pins.analogReadPin(AnalogPin.P0);
@@ -156,13 +155,11 @@ namespace bitcommander
 
     /**
       * Read joystick values
-      *
       * @param axis Axis to read
       */
-    //% blockId="bitcommander_read_joystick" block="joystick %axis"
+    //% blockId="bcReadJoystick" block="joystick %axis"
     //% weight=90
     //% subcategory=Inputs
-    //% group=Inputs
     export function readJoystick(axis: BCJoystick): number
     {
         if (axis == BCJoystick.X)
@@ -172,123 +169,124 @@ namespace bitcommander
     }
 
 
-// LEDs. neopixel blocks
+// Fireled Helper Blocks
 
-    // create a neopixel strip if not got one already
-    function neo(): neopixel.Strip
+    // create a FireLed band if not got one already. Default to brightness 40
+    // defaults to P13 and 50 LEDs if not specified
+    function fire(): fireled.Band
     {
-        if (!neoStrip)
+        if (!band)
         {
-            neoStrip = neopixel.create(DigitalPin.P13, 6, NeoPixelMode.RGB)
-            neoStrip.setBrightness(40)
+            band = fireled.newBand(ledPin, ledCount);
+            band.setBrightness(40);
         }
-        return neoStrip;
+        return band;
     }
 
     // update LEDs if _updateMode set to Auto
     function updateLEDs(): void
     {
         if (_updateMode == BCMode.Auto)
-            neo().show();
-    }
-
-    /**
-      * Show LED changes
-      */
-    //% blockId="bitcommander_neo_show" block="show LED changes"
-    //% weight=100
-    //% subcategory=Leds
-    export function neoShow(): void
-    {
-        neo().show();
+            ledShow();
     }
 
     /**
       * Sets all LEDs to a given color (range 0-255 for r, g, b).
-      *
       * @param rgb RGB color of the LED
       */
-    //% blockId="bitcommander_neo_set_color" block="set all LEDs to %rgb=bc_colours"
-    //% weight=95
+    //% blockId="bcSetLedColor" block="set all 03 LEDs to%rgb=FireColours"
     //% subcategory=Leds
-    export function neoSetColor(rgb: number)
+    //% weight=100
+    export function setLedColor(rgb: number)
     {
-        neo().showColor(rgb);
+        fire().setBand(rgb);
         updateLEDs();
     }
 
     /**
-      * Clear all LEDs.
+      * Clear all leds.
       */
-    //% blockId="bitcommander_neo_clear" block="clear all LEDs"
+    //% blockId="bcLedClear" block="clear all LEDs"
+    //% subcategory=Leds
     //% weight=90
-    //% subcategory=Leds
-    export function neoClear(): void
+    export function ledClear()
     {
-        neo().clear();
+        fire().clearBand();
         updateLEDs();
     }
 
     /**
-      * Set LED to a given color (range 0-255 for r, g, b).
-      *
-      * @param ledId position of the LED (0 to 5)
-      * @param rgb RGB color of the LED
-      */
-    //% blockId="bitcommander_neo_set_pixel_color" block="set LED at %ledId|to %rgb=bc_colours"
-    //% weight=85
+     * Set single LED to a given color (range 0-255 for r, g, b).
+     * @param ledId position of the LED (0 to 5)
+     * @param rgb RGB color of the LED
+     */
+    //% blockId="bcSetPixelColor" block="set LED at%ledId|to%rgb=FireColours"
     //% subcategory=Leds
-    export function neoSetPixelColor(ledId: number, rgb: number): void
+    //% weight=80
+    export function setPixelColor(ledId: number, rgb: number)
     {
-        neo().setPixelColor(ledId, rgb);
+        fire().setPixel(ledId, rgb);
         updateLEDs();
     }
 
     /**
       * Shows a rainbow pattern on all LEDs.
       */
-    //% blockId="bitcommander_neo_rainbow" block="set led rainbow"
-    //% weight=80
+    //% blockId="bcLedRainbow" block="set LED rainbow"
     //% subcategory=Leds
-    export function neoRainbow(): void
+    //% weight=70
+    export function ledRainbow()
     {
-        neo().showRainbow(1, 360)
+        fire().setRainbow();
         updateLEDs()
     }
 
     /**
-      * Rotate LEDs forward.
-      */
-    //% blockId="bitcommander_neo_rotate" block="rotate LEDs"
-    //% weight=75
+     * Shift LEDs forward and clear with zeros.
+     */
+    //% blockId="bcLedShift" block="shift LEDs"
     //% subcategory=Leds
-    export function neoRotate(): void
+    //% weight=60
+    export function ledShift()
     {
-        neo().rotate(1);
-        updateLEDs();
+        fire().shiftBand();
+        updateLEDs()
     }
 
     /**
-      * Shift LEDs forward and clear with zeros.
-      */
-    //% blockId="bitcommander_neo_shift" block="shift LEDs"
-    //% weight=70
+     * Rotate LEDs forward.
+     */
+    //% blockId="bcLedRotate" block="rotate LEDs"
     //% subcategory=Leds
-    export function neoShift(): void
+    //% weight=50
+    export function ledRotate()
     {
-        neo().shift(1);
-        updateLEDs();
+        fire().rotateBand();
+        updateLEDs()
     }
 
-    // advanced blocks
+    // Advanced Fireled blocks
+
+    /**
+     * Set the brightness of the FireLed band
+     * @param brightness a measure of LED brightness in 0-255. eg: 40
+     */
+    //% blockId="bcLedBrightness" block="set LED brightness%brightness"
+    //% brightness.min=0 brightness.max=255
+    //% weight=100
+    //% advanced=true
+    export function ledBrightness(brightness: number)
+    {
+        fire().setBrightness(brightness);
+        updateLEDs();
+    }
 
     /**
       * Set LED update mode (Manual or Automatic)
       * @param updateMode setting automatic will show LED changes automatically
       */
-    //% blockId="bitcommander_set_updateMode" block="set %updateMode|update mode"
-    //% brightness.min=0 brightness.max=255
-    //% weight=65
+    //% blockId="bcSetUpdateMode" block="set %updateMode|update mode"
+    //% weight=90
     //% advanced=true
     export function setUpdateMode(updateMode: BCMode): void
     {
@@ -296,45 +294,50 @@ namespace bitcommander
     }
 
     /**
-      * Set the brightness of the LEDs
-      * @param brightness a measure of LED brightness (0 to 255) eg: 40
+      * Show LED changes
       */
-    //% blockId="bitcommander_neo_brightness" block="set led brightness %brightness"
-    //% brightness.min=0 brightness.max=255
-    //% weight=60
+    //% blockId="bcLedShow" block="show LED changes"
+    //% weight=80
     //% advanced=true
-    export function neoBrightness(brightness: number): void
+    export function ledShow(): void
     {
-        neo().setBrightness(brightness);
-        updateLEDs();
+        if (! btEnabled)
+            fire().updateBand();
     }
 
     /**
       * Get numeric value of colour
-      *
-      * @param color Standard RGB Led Colours
+      * @param colour Standard RGB Led Colours eg: #ff0000
       */
-    //% blockId="bc_colours" block=%color
-    //% weight=55
+    //% blockId="FireColours" block=%colour
     //% advanced=true
-    export function BCColours(color: BCColors): number
+    //% blockHidden=false
+    //% weight=70
+    //% shim=TD_ID colorSecondary="#e7660b"
+    //% colour.fieldEditor="colornumber"
+    //% colour.fieldOptions.decompileLiterals=true
+    //% colour.defl='#ff0000'
+    //% colour.fieldOptions.colours='["#FF0000","#659900","#18E600","#80FF00","#00FF00","#FF8000","#D82600","#B24C00","#00FFC0","#00FF80","#FFC000","#FF0080","#FF00FF","#B09EFF","#00FFFF","#FFFF00","#8000FF","#0080FF","#0000FF","#FFFFFF","#FF8080","#80FF80","#40C0FF","#999999","#000000"]'
+    //% colour.fieldOptions.columns=5
+    //% colour.fieldOptions.className='rgbColorPicker'
+    export function fireColours(colour: number): number
     {
-        return color;
+        return colour;
     }
 
     /**
       * Convert from RGB values to colour number
-      *
       * @param red Red value of the LED (0 to 255)
       * @param green Green value of the LED (0 to 255)
       * @param blue Blue value of the LED (0 to 255)
       */
-    //% blockId="bitcommander_convertRGB" block="convert from red %red| green %green| blue %bblue"
-    //% weight=50
+    //% blockId="bcConvertRGB" block="convert from red%red|green%green|blue%blue"
+    //% weight=60
     //% advanced=true
     export function convertRGB(r: number, g: number, b: number): number
     {
         return ((r & 0xFF) << 16) | ((g & 0xFF) << 8) | (b & 0xFF);
     }
+
 
 }

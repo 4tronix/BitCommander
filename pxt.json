@@ -1,7 +1,7 @@
 {
     "name": "bitcommander",
-    "version": "1.0.1",
-    "description": "A BitCommander package for pxt-microbit",
+    "version": "1.0.2",
+    "description": "Microsoft MakeCode package for 4tronix BitCommander",
     "license": "MIT",
     "dependencies": {
         "core": "*",
@@ -9,7 +9,7 @@
     },
     "files": [
         "README.md",
-        "main.ts",
+        "bitcommander.ts",
         "main.cpp",
         "shims.d.ts",
         "enums.d.ts"

@@ -194,7 +194,7 @@ namespace bitcommander
       * Sets all LEDs to a given color (range 0-255 for r, g, b).
       * @param rgb RGB color of the LED
       */
-    //% blockId="bcSetLedColor" block="set all 03 LEDs to%rgb=FireColours"
+    //% blockId="bcSetLedColor" block="set all LEDs to%rgb=FireColours"
     //% subcategory=Leds
     //% weight=100
     export function setLedColor(rgb: number)

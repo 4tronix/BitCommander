@@ -1,9 +1,9 @@
-﻿/**
+/**
  * Pins used to generate events
  */
 enum BCPins {
     //% block="red"
-    Red = <number>DAL.MICROBIT_ID_IO_P12,
+    Red = DAL.MICROBIT_ID_IO_P12,
     //% block="yellow"
     Yellow = DAL.MICROBIT_ID_IO_P16,
     //% block="green"

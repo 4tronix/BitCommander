@@ -3,7 +3,7 @@
  */
 enum BCPins {
     //% block="red"
-    Red = <number>DAL.MICROBIT_ID_IO_P12,
+    Red = DAL.MICROBIT_ID_IO_P12,
     //% block="yellow"
     Yellow = DAL.MICROBIT_ID_IO_P16,
     //% block="green"
@@ -19,9 +19,9 @@ enum BCPins {
  */
 enum BCEvents {
     //% block="down"
-    Down = DAL.MICROBIT_BUTTON_EVT_UP,
+    Down = DAL.MICROBIT_PIN_EVT_RISE,
     //% block="up"
-    Up = DAL.MICROBIT_BUTTON_EVT_DOWN
+    Up = DAL.MICROBIT_PIN_EVT_FALL
 }
 
 /**
@@ -105,20 +105,28 @@ namespace bitcommander
 
 // Inputs. Buttons, Dial and Joystick
 
-    //% shim=bitcommander::init
-    function init(): void {
-        return;
+    function initEvents(): void
+    {
+        if (_initEvents)
+        {
+            pins.setEvents(DigitalPin.P12, PinEventType.Edge);
+            pins.setEvents(DigitalPin.P16, PinEventType.Edge);
+            pins.setEvents(DigitalPin.P14, PinEventType.Edge);
+            pins.setEvents(DigitalPin.P15, PinEventType.Edge);
+            pins.setEvents(DigitalPin.P8, PinEventType.Edge);
+            _initEvents = false;
+        }
     }
 
     /**
       * Registers event code
       */
     //% weight=90
-    //% blockId=bcOnEvent block="on %button|%event"
+    //% blockId=bcOnEvent block="on button%button|%event"
     //% subcategory=Inputs
     export function onEvent(button: BCPins, event: BCEvents, handler: Action)
     {
-        init();
+        initEvents();
         control.onEvent(<number>button, <number>event, handler); // register handler
     }
 

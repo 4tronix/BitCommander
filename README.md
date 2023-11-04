@@ -57,7 +57,7 @@ There is a small speaker on Bit:Commander wired to Pin 0, which is the default f
 Play The Entertainer music clip:
 
 ```block
-music.beginMelody(music.builtInMelody(Melodies.Entertainer), MelodyOptions.Once)
+music._playDefaultBackground(music.builtInPlayableMelody(Melodies.Entertainer), music.PlaybackMode.UntilDone)
 ```
 
 
@@ -69,7 +69,7 @@ The default update mode is automatic so LEDs will be updated immediately after c
 Set all leds to Red:
 
 ```block
-bitcommander.bitcommander.setLedColor(0xff0000);
+bitcommander.setLedColor(0xff0000)
 ```
 
 Clear all leds:
@@ -78,10 +78,10 @@ Clear all leds:
 bitcommander.ledClear()
 ```
 
-Set Fireled at position 1 to Green:
+Set Fireled at position 1 to Green (Fireleds are numbered 0 to 5):
 
 ```block
-bitcommander.setPixelColor(0, 0x00ff00)
+bitcommander.setPixelColor(1, 0x00ff00)
 ```
 
 Show rainbow across all Fireleds (Red..Violet):
